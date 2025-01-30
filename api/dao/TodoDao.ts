@@ -1,6 +1,6 @@
 import { Categories, mapCategory } from '@/constants/Categories';
 import { IFetchedTodo, ITodo } from '@/types/ITodo';
-import { formatDate } from '@/utils/date';
+import DateService from '@/utils/date';
 import { SQLiteDatabase } from 'expo-sqlite';
 import IDao from './IDao';
 
@@ -23,7 +23,7 @@ class TodoDao implements IDao<ITodo> {
 					id,
 					title,
 					done: done !== 0,
-					date: date ? formatDate(date) : undefined,
+					date: date ? DateService.fromSqliteFormat(date) : undefined,
 					categories: mapCategory(category),
 				} as ITodo)
 		);
@@ -40,8 +40,20 @@ class TodoDao implements IDao<ITodo> {
 		throw new Error('Method not implemented.');
 	}
 	save(model: ITodo): ITodo {
-		throw new Error('Method not implemented.');
+		const categoryQuery = `SELECT id FROM Categories WHERE name = ? LIMIT 1`;
+		const categoryResult = this.db.getFirstSync<{id:number}>(categoryQuery, [model.categories]);
+		const categoryId = categoryResult?.id ?? null;
+		if (!categoryId) {
+			throw new Error(`Категорія "${model.categories}" не знайдена`);
+		}
+		console.log('model:', model);
+		const query = `INSERT INTO Todos (title, done, due_time, category_fk_id) VALUES (?, ?, ?, ?)`;
+		const values = [model.title, model.done ? 1 : 0, model.date ? DateService.toSqliteFormat(model.date) : null, categoryId];
+		console.log('inserting..');
+		this.db.runSync(query, values);
+		return model;
 	}
+
 	update(id: number, updates: Partial<ITodo>): void {
 		const fields = [];
 		const values = [];
@@ -59,12 +71,6 @@ class TodoDao implements IDao<ITodo> {
 			fields.push('title = ?');
 			values.push(updates.categories);
 		}
-
-		if (updates.date !== undefined) {
-			fields.push('title = ?');
-			values.push(updates.date);
-		}
-
 		if (fields.length === 0) return;
 
 		const query = `UPDATE Todos SET ${fields.join(', ')} WHERE id = ?`;

@@ -3,6 +3,7 @@ import { Categories } from '@/constants/Categories';
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import { ITodo } from '@/types/ITodo';
+import DateService from '@/utils/date';
 import Checkbox from 'expo-checkbox';
 import React, { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -33,7 +34,7 @@ const TaskView: FC<TaskProps> = ({ todo, setValue }) => {
 				<ThemedText style={{ textDecorationLine: todo.done ? 'line-through' : 'none' }} type='defaultSemiBold'>
 					{todo.title}
 				</ThemedText>
-				<ThemedText style={{ opacity: 0.6, textDecorationLine: todo.done ? 'line-through' : 'none' }}>{todo.date}</ThemedText>
+				<ThemedText style={{ opacity: 0.6, textDecorationLine: todo.done ? 'line-through' : 'none' }}>{todo.date && DateService.toUIFormat(todo.date)}</ThemedText>
 			</View>
 
 			<Checkbox color={Colors.dark.primary} style={[styles.checkbox, { backgroundColor: Colors.light.background }]} value={todo.done} onValueChange={onCheckboxChange} />

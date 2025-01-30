@@ -5,7 +5,7 @@ export interface ITodo {
 	title: string;
 	done: boolean;
 	categories: Categories;
-	date?: string;
+	date?: Date;
 }
 
 export interface IFetchedTodo {

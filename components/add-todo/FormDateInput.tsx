@@ -1,22 +1,20 @@
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import { FC } from 'react';
-import { NativeSyntheticEvent, StyleSheet, TextInput, TextInputChangeEventData, TextStyle, View, ViewStyle } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { ThemedText } from '../common/ThemedText';
 
 interface FormInputProps {
 	value: string;
-	onChange: (value: string) => void;
+	onChange?: (value: string) => void;
+	onPress?: () => void;
 
 	label?: string;
 	containerStyle?: ViewStyle;
-	inputStyle?: TextStyle;
+	inputStyle?: ViewStyle;
 }
 
-const FormInput: FC<FormInputProps> = ({ value, onChange, label, containerStyle, inputStyle }) => {	
-	const handleChange = (data: NativeSyntheticEvent<TextInputChangeEventData>) => {
-		onChange(data.nativeEvent.text);
-	};
+const FormDateInput: FC<FormInputProps> = ({ value, onPress, label, containerStyle, inputStyle }) => {
 	return (
 		<View style={[styles.container, containerStyle]}>
 			{label && (
@@ -24,7 +22,9 @@ const FormInput: FC<FormInputProps> = ({ value, onChange, label, containerStyle,
 					{label}
 				</ThemedText>
 			)}
-			<TextInput multiline={true} style={[styles.input, inputStyle]} value={value} onChange={handleChange} placeholder={label} />
+			<TouchableOpacity onPress={onPress} style={[styles.input, inputStyle]} onPressIn={() => {}}>
+				<ThemedText>{value || label || 'Pick time...'}</ThemedText>
+			</TouchableOpacity>
 		</View>
 	);
 };
@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
 	},
 	label: {},
 	input: {
+		flexDirection: 'row',
+		width: '100%',
 		backgroundColor: Colors.light.background,
 		borderWidth: 1,
 		borderColor: '#E0E0E0',
@@ -44,4 +46,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default FormInput;
+export default FormDateInput;

@@ -9,6 +9,9 @@ export default class TodosService implements IService {
 	constructor(todoDao: TodoDao) {
 		this.todoDao = todoDao;
 	}
+	saveTodo(todo: ITodo): void {
+		this.todoDao.save(todo);
+	}
 	getAllTodos(): Promise<ITodo[]> {
 		return this.todoDao.getAll();
 	}

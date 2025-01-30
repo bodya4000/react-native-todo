@@ -7,6 +7,7 @@ export default interface IService {
 	// getByCategoryTodos(): Promise<ITodo[]>;
 
 	// updateTodo(id: number, updates: Partial<ITodo>): Promise<ITodo>;
+	saveTodo(todo: ITodo): void;
 	toggleTodoStatus(id: number, newStatus: boolean): void;
 
 	// deleteTodo(id: number): void;
