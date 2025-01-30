@@ -8,7 +8,8 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { SQLiteProvider, openDatabaseSync } from 'expo-sqlite';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
 import 'react-native-reanimated';
 
 const db = openDatabaseSync('todos_db');
@@ -34,17 +35,21 @@ export default function RootLayout() {
 	}
 
 	return (
-		<SQLiteProvider databaseName='todos_db' onInit={migrateDbIfNeeded} useSuspense>
-			<QueryClientProvider client={queryClient}>
-				<ThemeProvider value={DarkTheme}>
-					<Stack>
-						<Stack.Screen name='add-todo' options={{ headerShown: false }} />
-						<Stack.Screen name='list' options={{ headerShown: false }} />
-						<Stack.Screen name='+not-found' />
-					</Stack>
-					<StatusBar style='light' />
-				</ThemeProvider>
-			</QueryClientProvider>
-		</SQLiteProvider>
+		<>
+			<SQLiteProvider databaseName='todos_db' onInit={migrateDbIfNeeded} useSuspense>
+				<QueryClientProvider client={queryClient}>
+					<ThemeProvider value={DarkTheme}>
+						<KeyboardProvider>
+							<Stack>
+								<Stack.Screen name='add-todo' options={{ headerShown: false }} />
+								<Stack.Screen name='list' options={{ headerShown: false }} />
+								<Stack.Screen name='+not-found' />
+							</Stack>
+						</KeyboardProvider>
+					</ThemeProvider>
+				</QueryClientProvider>
+			</SQLiteProvider>
+			<StatusBar style='light' />
+		</>
 	);
 }

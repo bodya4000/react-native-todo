@@ -18,15 +18,14 @@ const Header: FC<HeaderContainerProps> = ({ subtitle, title, goBackButton, style
 	return (
 		<SafeAreaView style={[styles.header, style]}>
 			<View style={styles.container}>
-				<View style={styles.top_body}>
+				<SafeAreaView style={styles.top_body}>
 					{goBackButton && <WhiteCircleButton onPress={goBack} style={styles.left_button} content={<Image source={require('../../assets/images/left-arrow.png')} />} />}
-
 					{subtitle && (
 						<ThemedText style={styles.header_subtitle} type='subtitle' lightColor='#fff' darkColor='#fff'>
 							{subtitle}
 						</ThemedText>
 					)}
-				</View>
+				</SafeAreaView>
 
 				{title && (
 					<ThemedText style={styles.header_title} type='title' lightColor='#fff' darkColor='#fff'>
