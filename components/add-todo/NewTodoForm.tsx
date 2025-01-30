@@ -2,7 +2,7 @@ import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import React, { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import PrimaryButton from '../common/PrimaryButton';
 import { ThemedText } from '../common/ThemedText';
 import EventIcon from '../ui/EventIcon';
@@ -26,8 +26,8 @@ const NewTodoForm: FC = () => {
 
 	return (
 		<>
-			<View style={styles.container}>
-				<Controller name='name' control={control} render={({ field: { onChange, value } }) => <FormInput label='Task Title' />} />
+			<ScrollView contentContainerStyle={styles.layout}>
+				<Controller name='name' control={control} render={({ field: { onChange, value } }) => <FormInput containerStyle={styles.titleContainer} label='Task Title' />} />
 
 				<View style={styles.categories}>
 					<ThemedText type='subtitle' style={styles.categories__label}>
@@ -45,25 +45,27 @@ const NewTodoForm: FC = () => {
 				</View>
 
 				<Controller name='notes' control={control} render={({ field: { onChange, value } }) => <FormInput inputStyle={styles.notes} label='Notes' />} />
-			</View>
-
-			<SafeAreaView>
-				<PrimaryButton style={{ marginBottom: Spacing.sm }} text='Save' onPress={() => {}} />
-			</SafeAreaView>
+			</ScrollView>
+			<PrimaryButton style={styles.save_button} text='Save' onPress={() => {}} />
 		</>
 	);
 };
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 10,
+	layout: {
+		flex: 1,
 		gap: Spacing.x2l,
 		margin: Spacing.lg,
+		marginBottom: Spacing.md,
+	},
+	titleContainer: {
+		marginBottom: Spacing.sm,
 	},
 	categories: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		gap: Spacing.md,
+		gap: Spacing.sm,
+		marginBottom: Spacing.sm,
 	},
 	categories__label: {
 		marginRight: Spacing.md,
@@ -79,14 +81,20 @@ const styles = StyleSheet.create({
 	date_container: {
 		flexDirection: 'row',
 		gap: Spacing.md,
+		marginBottom: Spacing.sm,
 	},
 	date_input_container: {
 		flex: 1,
 	},
 
 	notes: {
-		height:200,
-		textAlignVertical:'top'
+		height: 200,
+		textAlignVertical: 'top',
+		marginBottom: Spacing.sm,
+	},
+
+	save_button: {
+		marginBottom: Spacing.xl,
 	},
 });
 

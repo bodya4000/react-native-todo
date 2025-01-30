@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 		padding: Spacing.md,
 		borderRadius: 5,
 		fontSize: 20,
-	},
+	}, 
 });
 
 export default FormInput;

@@ -6,7 +6,7 @@ import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import { Stack, useRouter } from 'expo-router';
 import React, { FC } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 
 const List: FC = () => {
 	const router = useRouter();
@@ -16,13 +16,11 @@ const List: FC = () => {
 			<Stack.Screen options={{ headerShown: false }} />
 			<SafeAreaView style={styles.layout}>
 				<Header style={styles.headerContainer} title='My Todo List' subtitle='October 20, 2022' />
-				<View style={styles.contentContainer}>
-					<ScrollView contentContainerStyle={styles.content}>
-						<Tasks />
-						<CompletedTasks />
-						<PrimaryButton style={styles.add_new_task__button} text='Add new task' onPress={() => router.push('/add-todo')} />
-					</ScrollView>
-				</View>
+				<ScrollView contentContainerStyle={styles.content}>
+					<Tasks />
+					<CompletedTasks />
+				</ScrollView>
+				<PrimaryButton style={styles.add_new_task__button} text='Add new task' onPress={() => router.push('/add-todo')} />
 			</SafeAreaView>
 		</>
 	);
@@ -41,22 +39,17 @@ const styles = StyleSheet.create({
 		right: 0,
 		zIndex: 0,
 	},
-	contentContainer: {
-		flex: 1,
-		marginTop: 160,
-		borderRadius: 30,
-		overflow: 'hidden',
-	},
 	content: {
-		flexGrow: 1,
-		borderTopLeftRadius: 50,
-		borderTopRightRadius: 50,
+		flex: 1,
+		zIndex: 10000,
+		paddingBottom: Spacing.sm + 150,
+		position: 'absolute',
+		top: 160,
+		width: '100%',
 		overflow: 'hidden',
-		paddingTop: 20,
 	},
 	add_new_task__button: {
 		marginTop: Spacing.lg,
-		marginBottom: Spacing.sm,
 	},
 });
 

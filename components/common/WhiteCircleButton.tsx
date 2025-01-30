@@ -4,7 +4,7 @@ import { StyleSheet, TouchableOpacity, TouchableOpacityProps, ViewStyle } from '
 import { ThemedText } from './ThemedText';
 
 interface WhiteCircleButtonProps extends TouchableOpacityProps {
-	style: ViewStyle;
+	style?: ViewStyle;
 	title?: string;
 	content?: ReactNode | string;
 }
@@ -19,6 +19,7 @@ const WhiteCircleButton: FC<WhiteCircleButtonProps> = ({ content, style, ...rest
 
 const styles = StyleSheet.create({
 	button: {
+		padding: 4,
 		backgroundColor: Colors.light.background,
 		height: 40,
 		width: 40,

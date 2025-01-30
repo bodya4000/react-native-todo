@@ -3,12 +3,12 @@ import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { ThemedText } from '../common/ThemedText';
 import TaskView from './TaskView';
-import { ThemedText } from '../common/ThemedText'
 
 const CompletedTasks: FC = () => {
 	return (
-		<View style={{ flex: 1 }}>
+		<View style={{ flex: 1, backgroundColor: Colors.light.backgroundSecondary }}>
 			<ThemedText type='subtitle' style={[styles.title]}>
 				Completed
 			</ThemedText>
@@ -29,10 +29,8 @@ const styles = StyleSheet.create({
 	container: {
 		position: 'relative',
 		zIndex: 100,
-
 		marginHorizontal: Spacing.lg,
 		gap: 2,
-
 		backgroundColor: Colors.light.backgroundSecondary,
 		borderRadius: 20,
 		overflow: 'hidden',
