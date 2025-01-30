@@ -1,16 +1,21 @@
-import { Categories } from '@/constants/Categories';
+import { todoService } from '@/app/_layout';
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
+import useTodos from '@/hooks/useTodos';
 import { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
 import TaskView from './TaskView';
 
 const Tasks: FC = () => {
+	const { data } = useTodos({ done: false });
+	const toggleTodoStatus = (id: number, newStatus: boolean) => {
+		todoService.toggleTodoStatus(id, newStatus);
+	};
 	return (
 		<View style={styles.container}>
-			<TaskView category={Categories.DEFAULT} title='Study lesson' date='10:10' value={false} setValue={() => {}} />
-			<TaskView category={Categories.GOAL} title='Study lesson' date='10:10' value={false} setValue={() => {}} />
-
+			{data?.map(todo => {
+				return <TaskView key={todo.id} todo={todo} setValue={(id: number, newStatus: boolean) => toggleTodoStatus(id,newStatus)} />;
+			})}
 		</View>
 	);
 };

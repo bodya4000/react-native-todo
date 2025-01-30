@@ -4,13 +4,14 @@ import CompletedTasks from '@/components/list/CompletedTasks';
 import Tasks from '@/components/list/Tasks';
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
+import { useQuery } from '@tanstack/react-query';
 import { Stack, useRouter } from 'expo-router';
 import React, { FC } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { todoDao } from '../_layout';
 
 const List: FC = () => {
 	const router = useRouter();
-
 	return (
 		<>
 			<Stack.Screen options={{ headerShown: false }} />
