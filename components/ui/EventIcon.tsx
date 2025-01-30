@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 
 type EventIconProps = Omit<ComponentProps<typeof Image>, 'href'> & {};
 
-const EventIcon: FC<EventIconProps> = (...props) => {
+const EventIcon: FC<EventIconProps> = (props) => {
 	return <Image {...props} source={require('../../assets/images/event.png')} />;
 };
 

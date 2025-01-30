@@ -1,7 +1,7 @@
 import Header from '@/components/common/Header';
 import PrimaryButton from '@/components/common/PrimaryButton';
-import CompletedTasks from '@/components/CompletedTasks';
-import Tasks from '@/components/Tasks';
+import CompletedTasks from '@/components/list/CompletedTasks';
+import Tasks from '@/components/list/Tasks';
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import { Stack, useRouter } from 'expo-router';
@@ -16,7 +16,7 @@ const List: FC = () => {
 			<View style={styles.layout}>
 				<Header title='My Todo List' subtitle='October 20, 2022' />
 
-				<SafeAreaView style={{ flex: 2.5 }}>
+				<SafeAreaView style={{ flex: 2.4 }}>
 					<Tasks />
 					<CompletedTasks />
 					<PrimaryButton style={styles.add_new_task__button} text='Add new task' onPress={() => router.push('/add-todo')} />

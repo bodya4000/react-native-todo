@@ -4,10 +4,10 @@ import { Spacing } from '@/constants/Spacing';
 import Checkbox from 'expo-checkbox';
 import React, { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ThemedText } from './common/ThemedText';
-import GoalIcon from './ui/GoalIcon';
-import TaskIcon from './ui/TaskIcon';
-import EventIcon from './ui/TaskIcon copy';
+import { ThemedText } from '../common/ThemedText';
+import GoalIcon from '../ui/GoalIcon';
+import TaskIcon from '../ui/TaskIcon';
+import EventIcon from '../ui/EventIcon';
 
 interface TaskProps {
 	title: string;

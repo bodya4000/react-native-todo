@@ -3,8 +3,8 @@ import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ThemedText } from './common/ThemedText';
 import TaskView from './TaskView';
+import { ThemedText } from '../common/ThemedText'
 
 const CompletedTasks: FC = () => {
 	return (

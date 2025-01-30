@@ -1,20 +1,25 @@
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
-import { FC, ReactNode } from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { useNavigation } from 'expo-router';
+import { FC } from 'react';
+import { Image, Platform, SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
 import { ThemedText } from './ThemedText';
+import WhiteCircleButton from './WhiteCircleButton';
 
 interface HeaderContainerProps {
 	subtitle?: string;
 	title?: string;
-	button?: ReactNode;
+	goBackButton?: boolean;
 }
 
-const HeaderContainer: FC<HeaderContainerProps> = ({ subtitle, title, button }) => {
+const Header: FC<HeaderContainerProps> = ({ subtitle, title, goBackButton }) => {
+	const { goBack } = useNavigation();
 	return (
 		<SafeAreaView style={styles.header}>
 			<View style={styles.container}>
-				<View style={styles.tob_body}>
+				<View style={styles.top_body}>
+					{goBackButton && <WhiteCircleButton onPress={goBack} style={styles.left_button} content={<Image source={require('../../assets/images/left-arrow.png')} />} />}
+
 					{subtitle && (
 						<ThemedText style={styles.header_subtitle} type='subtitle' lightColor='#fff' darkColor='#fff'>
 							{subtitle}
@@ -38,12 +43,21 @@ const styles = StyleSheet.create({
 		zIndex: 0,
 		flex: 1,
 		backgroundColor: Colors.light.primary,
+		paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
 	},
 	container: {
 		padding: Spacing.md,
 	},
-	tob_body: {
+	top_body: {
 		marginBottom: Spacing.md,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		position: 'relative',
+	},
+	left_button: {
+		position: 'absolute',
+		left: 0,
 	},
 	header_title: {
 		padding: 10,
@@ -52,8 +66,9 @@ const styles = StyleSheet.create({
 	},
 	header_subtitle: {
 		textAlign: 'center',
-		paddingBottom: Spacing.xl,
+		height: Platform.OS == 'android' ? 40 : 'auto',
+		paddingBottom: Platform.OS == 'android' ? 0 : Spacing.xl,
 	},
 });
 
-export default HeaderContainer;
+export default Header;
