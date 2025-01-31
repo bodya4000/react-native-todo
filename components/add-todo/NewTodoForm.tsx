@@ -1,7 +1,8 @@
-import { queryClient, todoService } from '@/app/_layout';
+import { todoService } from '@/app/_layout';
 import { Categories } from '@/constants/Categories';
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
+import QueryClientService from '@/services/QueryClientService';
 import DateService from '@/utils/date';
 import { useNavigation } from 'expo-router';
 import React, { FC, useCallback, useState } from 'react';
@@ -16,7 +17,6 @@ import GoalIcon from '../ui/GoalIcon';
 import TaskIcon from '../ui/TaskIcon';
 import FormDateInput from './FormDateInput';
 import FormInput from './FormInput';
-import QueryClientService from '@/services/QueryClientService'
 
 interface FormValues {
 	name: string;
@@ -36,17 +36,11 @@ const NewTodoForm: FC = () => {
 	} = useForm<FormValues>({
 		defaultValues: { name: '', date: undefined, notes: '', category: Categories.DEFAULT },
 	});
+	watch('category');
 
 	const { goBack } = useNavigation();
 	const [showDatePicker, setShowDatePicker] = useState(false);
 	const [date, setDate] = useState(new Date());
-
-	const handleCategorySelect = useCallback(
-		(category: Categories) => {
-			setValue('category', category);
-		},
-		[setValue]
-	);
 
 	const pickDate = useCallback(() => {
 		if (date < new Date()) {
@@ -60,19 +54,26 @@ const NewTodoForm: FC = () => {
 	const onSubmit = useCallback(
 		(data: FormValues) => {
 			todoService.saveTodo({ title: data.name, categories: data.category, done: false, date: data.date, id: 0 });
-			QueryClientService.invalidateTodos()
+			QueryClientService.invalidateTodos();
 			goBack();
 		},
 		[goBack]
 	);
 
-	const selectedCategory = watch('category')
-
 	return (
 		<>
 			<KeyboardAwareScrollView bottomOffset={62} style={styles.layout}>
-				<Controller name='name' control={control} rules={{ required: 'Title is required' }} render={({ field: { onChange, value } }) => <FormInput value={value} onChange={onChange} containerStyle={styles.titleContainer} label='Task Title' />} />
-				{errors.name && <ThemedText style={{ color: 'red', top: -20 }}>{errors.name.message}</ThemedText>}
+				<Controller
+					name='name'
+					control={control}
+					rules={{ required: 'Title is required' }}
+					render={({ field: { onChange, value } }) => (
+						<View style={styles.titleContainer}>
+							<FormInput value={value} onChange={onChange} label='Task Title' />
+							{errors.name && <ThemedText style={{ color: 'red', bottom: -Spacing.lg, position: 'absolute' }}>{errors.name.message}</ThemedText>}
+						</View>
+					)}
+				/>
 
 				<View style={styles.categories}>
 					<ThemedText type='subtitle' style={styles.categories__label}>
@@ -90,9 +91,17 @@ const NewTodoForm: FC = () => {
 					))}
 				</View>
 
-				<View style={[styles.date_container, { marginBottom: showDatePicker ? Spacing.xs : Spacing.x2l }]}>
-					<FormDateInput label='Date & Time' value={getValues('date') ? DateService.toUIFormat(getValues('date')!) : 'Select Date'} onPress={() => setShowDatePicker(true)} containerStyle={{ flex: 1 }} />
-				</View>
+				<Controller
+					name='date'
+					control={control}
+					rules={{ required: 'Date & Time is required' }}
+					render={({ field }) => (
+						<View style={[styles.date_container, { marginBottom: showDatePicker ? Spacing.xs : Spacing.x2l }]}>
+							<FormDateInput label='Date & Time' value={field.value ? DateService.toUIFormat(field.value) : 'Select Date'} onPress={() => setShowDatePicker(true)} containerStyle={{ flex: 1 }} />
+							{errors.date && <ThemedText style={{ color: 'red', bottom: -Spacing.lg, left: 0, position: 'absolute' }}>{errors.date.message}</ThemedText>}
+						</View>
+					)}
+				/>
 
 				{showDatePicker && (
 					<View style={styles.pickerContainer}>
