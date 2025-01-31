@@ -1,7 +1,7 @@
-import { queryClient } from '@/app/_layout';
 import { Categories } from '@/constants/Categories';
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
+import QueryClientService from '@/services/QueryClientService';
 import { ITodo } from '@/types/ITodo';
 import DateService from '@/utils/date';
 import Checkbox from 'expo-checkbox';
@@ -20,9 +20,7 @@ interface TaskProps {
 const TaskView: FC<TaskProps> = ({ todo, setValue }) => {
 	const onCheckboxChange = () => {
 		setValue(todo.id, !todo.done);
-		queryClient.invalidateQueries({ queryKey: ['todos', true] });
-		queryClient.invalidateQueries({ queryKey: ['todos', false] });
-		queryClient.invalidateQueries({ queryKey: ['todos', undefined] });
+		QueryClientService.invalidateTodos();
 	};
 	return (
 		<View style={[styles.container, { opacity: todo.done ? 0.6 : 1 }]}>

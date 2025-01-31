@@ -16,6 +16,7 @@ import GoalIcon from '../ui/GoalIcon';
 import TaskIcon from '../ui/TaskIcon';
 import FormDateInput from './FormDateInput';
 import FormInput from './FormInput';
+import QueryClientService from '@/services/QueryClientService'
 
 interface FormValues {
 	name: string;
@@ -59,9 +60,7 @@ const NewTodoForm: FC = () => {
 	const onSubmit = useCallback(
 		(data: FormValues) => {
 			todoService.saveTodo({ title: data.name, categories: data.category, done: false, date: data.date, id: 0 });
-			queryClient.invalidateQueries({ queryKey: ['todos', true] });
-			queryClient.invalidateQueries({ queryKey: ['todos', false] });
-			queryClient.invalidateQueries({ queryKey: ['todos', undefined] });
+			QueryClientService.invalidateTodos()
 			goBack();
 		},
 		[goBack]

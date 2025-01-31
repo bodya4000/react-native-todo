@@ -1,7 +1,7 @@
 import { ITodo } from '@/types/ITodo';
+import IDao from '../dao/IDao';
+import TodoDao from '../dao/TodoDao';
 import IService from './IService';
-import IDao from './dao/IDao';
-import TodoDao from './dao/TodoDao';
 
 export default class TodosService implements IService {
 	private readonly todoDao: IDao<ITodo>;

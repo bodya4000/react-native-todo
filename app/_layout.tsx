@@ -1,6 +1,6 @@
 import TodoDao from '@/api/dao/TodoDao';
 import { migrateDbIfNeeded } from '@/api/db';
-import TodosService from '@/api/TodoService';
+import TodosService from '@/api/services/TodoService';
 import { DarkTheme, ThemeProvider } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
