@@ -1,20 +1,19 @@
+import ToastService from '@/api/services/ToastService';
 import { todoService } from '@/app/_layout';
 import { Categories } from '@/constants/Categories';
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
-import QueryClientService from '@/services/QueryClientService';
 import DateService from '@/utils/date';
 import { useNavigation } from 'expo-router';
 import React, { FC, useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Alert, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
+import KeyboardContainer from '../common/KeyboardContainer';
 import PrimaryButton from '../common/PrimaryButton';
+import SecondaryButton from '../common/SecondaryButton';
 import { ThemedText } from '../common/ThemedText';
-import EventIcon from '../ui/EventIcon';
-import GoalIcon from '../ui/GoalIcon';
-import TaskIcon from '../ui/TaskIcon';
+import CategoryIcon from '../ui/CategoryIcon';
 import FormDateInput from './FormDateInput';
 import FormInput from './FormInput';
 
@@ -54,7 +53,7 @@ const NewTodoForm: FC = () => {
 	const onSubmit = useCallback(
 		(data: FormValues) => {
 			todoService.saveTodo({ title: data.name, categories: data.category, done: false, date: data.date, id: 0 });
-			QueryClientService.invalidateTodos();
+			ToastService.success('Success!');
 			goBack();
 		},
 		[goBack]
@@ -62,7 +61,7 @@ const NewTodoForm: FC = () => {
 
 	return (
 		<>
-			<KeyboardAwareScrollView showsVerticalScrollIndicator={false} bottomOffset={62} style={styles.layout}>
+			<KeyboardContainer style={styles.layout}>
 				<Controller
 					name='name'
 					control={control}
@@ -83,9 +82,7 @@ const NewTodoForm: FC = () => {
 						<TouchableOpacity key={category} style={styles.category_item} onPress={() => setValue('category', category)}>
 							<ThemedText type='defaultSemiBold'>{category}</ThemedText>
 							<View style={[styles.categories__icon, getValues('category') === category && styles.picked_category]}>
-								{category === Categories.DEFAULT && <TaskIcon />}
-								{category === Categories.EVENT && <EventIcon />}
-								{category === Categories.GOAL && <GoalIcon />}
+								<CategoryIcon category={category} />
 							</View>
 						</TouchableOpacity>
 					))}
@@ -107,14 +104,13 @@ const NewTodoForm: FC = () => {
 					<View style={styles.pickerContainer}>
 						<DatePicker dividerColor={Colors.light.primary} minimumDate={new Date()} mode='datetime' date={date} onDateChange={setDate} style={{ marginLeft: -50, flex: 1 }} />
 
-						<TouchableOpacity style={styles.picker_button} onPress={pickDate}>
-							<ThemedText style={styles.picker_button_text}>Pick</ThemedText>
-						</TouchableOpacity>
+						<SecondaryButton title='Pick' onPress={pickDate} />
 					</View>
 				)}
 
 				<Controller name='notes' control={control} render={({ field: { onChange, value } }) => <FormInput value={value} onChange={onChange} inputStyle={styles.notes} label='Notes' />} />
-			</KeyboardAwareScrollView>
+			</KeyboardContainer>
+
 			<SafeAreaView>
 				<PrimaryButton style={styles.save_button} text='Save' onPress={handleSubmit(onSubmit)} />
 			</SafeAreaView>
@@ -164,17 +160,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
-	},
-	picker_button: {
-		paddingVertical: Spacing.xs,
-		paddingHorizontal: Spacing.xl,
-		backgroundColor: Colors.light.background,
-		borderWidth: 3,
-		borderColor: Colors.light.primary,
-		borderRadius: 20,
-	},
-	picker_button_text: {
-		color: Colors.light.primary,
 	},
 	notes: {
 		height: 200,

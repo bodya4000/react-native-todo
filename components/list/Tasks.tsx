@@ -4,7 +4,7 @@ import { Spacing } from '@/constants/Spacing';
 import useTodos from '@/hooks/useTodos';
 import { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
-import TaskView from './TaskView';
+import TaskView from './task-view/TaskView';
 
 const Tasks: FC = () => {
 	const { data } = useTodos({ done: false });
@@ -14,7 +14,7 @@ const Tasks: FC = () => {
 	return (
 		<View style={styles.container}>
 			{data?.map(todo => {
-				return <TaskView key={todo.id} todo={todo} setValue={(id: number, newStatus: boolean) => toggleTodoStatus(id,newStatus)} />;
+				return <TaskView key={todo.id} todo={todo} setValue={(id: number, newStatus: boolean) => toggleTodoStatus(id, newStatus)} />;
 			})}
 		</View>
 	);
