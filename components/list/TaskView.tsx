@@ -1,5 +1,6 @@
 import ToastService from '@/api/services/ToastService';
 import { todoService } from '@/app/_layout';
+import CategoryIcon from '@/components/ui/CategoryIcon';
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import { ITodo } from '@/types/ITodo';
@@ -8,8 +9,7 @@ import { debounce } from '@/utils/helpers';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import React, { FC, useCallback, useRef } from 'react';
 import { Animated, PanResponder, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { ThemedText } from '../../common/ThemedText';
-import CategoryIcon from '@/components/ui/CategoryIcon'
+import { ThemedText } from '../common/ThemedText'
 
 interface TaskProps {
 	todo: ITodo;
@@ -32,16 +32,16 @@ const TaskView: FC<TaskProps> = ({ todo, setValue }) => {
 	const panResponder = useRef(
 		PanResponder.create({
 			onStartShouldSetPanResponderCapture: () => false,
-			onStartShouldSetPanResponder: () => true,
-			onMoveShouldSetPanResponder: () => true,
+			onStartShouldSetPanResponder: () => false,
+			onMoveShouldSetPanResponder: (_, gestureState) => {
+				return Math.abs(gestureState.dx) > Math.abs(gestureState.dy);
+			},
 			onPanResponderMove: (_, gestureState) => {
 				if (gestureState.dx > 10) {
 					translateX.setValue(gestureState.dx);
-					// if (gestureState.dx > 140) deleteTodo()();
 				}
 			},
 			onPanResponderRelease: (_, gestureState) => {
-				console.log(gestureState.dx);
 				if (gestureState.dx > 140) {
 					Animated.spring(translateX, {
 						toValue: 600,

@@ -13,7 +13,7 @@ interface FormInputProps {
 	inputStyle?: TextStyle;
 }
 
-const FormInput: FC<FormInputProps> = ({ value, onChange, label, containerStyle, inputStyle }) => {	
+const DefaultInput: FC<FormInputProps> = ({ value, onChange, label, containerStyle, inputStyle }) => {
 	const handleChange = (data: NativeSyntheticEvent<TextInputChangeEventData>) => {
 		onChange(data.nativeEvent.text);
 	};
@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default FormInput;
+export default DefaultInput;

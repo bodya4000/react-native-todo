@@ -4,7 +4,7 @@ import { Spacing } from '@/constants/Spacing';
 import useTodos from '@/hooks/useTodos';
 import { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
-import TaskView from './task-view/TaskView';
+import TaskView from './TaskView'
 
 const Tasks: FC = () => {
 	const { data } = useTodos({ done: false });

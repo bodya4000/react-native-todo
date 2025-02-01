@@ -5,7 +5,7 @@ import useTodos from '@/hooks/useTodos';
 import { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ThemedText } from '../common/ThemedText';
-import TaskView from './task-view/TaskView';
+import TaskView from './TaskView';
 
 const CompletedTasks: FC = () => {
 	const { data } = useTodos({ done: true });
