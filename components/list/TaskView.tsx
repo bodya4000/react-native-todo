@@ -1,12 +1,14 @@
+import { todoService } from '@/app/_layout';
 import { Categories } from '@/constants/Categories';
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import QueryClientService from '@/services/QueryClientService';
 import { ITodo } from '@/types/ITodo';
 import DateService from '@/utils/date';
+import { debounce } from '@/utils/helpers';
 import Checkbox from 'expo-checkbox';
-import React, { FC } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { FC, useCallback, useRef } from 'react';
+import { Animated, PanResponder, StyleSheet, View } from 'react-native';
 import { ThemedText } from '../common/ThemedText';
 import EventIcon from '../ui/EventIcon';
 import GoalIcon from '../ui/GoalIcon';
@@ -18,15 +20,51 @@ interface TaskProps {
 }
 
 const TaskView: FC<TaskProps> = ({ todo, setValue }) => {
-	const onCheckboxChange = () => {
+	const translateX = useRef(new Animated.Value(0)).current;
+
+	const onCheckboxChange = useCallback(() => {
 		setValue(todo.id, !todo.done);
 		QueryClientService.invalidateTodos();
-	};
+	}, [todo.id, todo.done]);
+
+	const deleteTodo = () =>
+		debounce(() => {
+			todoService.deleteTodo(todo.id);
+			QueryClientService.invalidateTodos();
+		});
+
+	const panResponder = useRef(
+		PanResponder.create({
+			onStartShouldSetPanResponder: () => true,
+			onMoveShouldSetPanResponder: () => true,
+			onPanResponderMove: (_, gestureState) => {
+				if (gestureState.dx > 10) {
+					translateX.setValue(gestureState.dx);
+					if (gestureState.dx > 140) deleteTodo()();
+				}
+			},
+			onPanResponderRelease: (_, gestureState) => {
+				console.log(gestureState.dx);
+				if (gestureState.dx > 140) {
+					Animated.spring(translateX, {
+						toValue: 600,
+						useNativeDriver: true,
+					}).start();
+				} else {
+					Animated.spring(translateX, {
+						toValue: 0,
+						useNativeDriver: true,
+					}).start();
+				}
+			},
+		})
+	).current;
+
 	return (
-		<View style={[styles.container, { opacity: todo.done ? 0.6 : 1 }]}>
-			{todo.categories == Categories.DEFAULT && <TaskIcon />}
-			{todo.categories == Categories.GOAL && <GoalIcon />}
-			{todo.categories == Categories.EVENT && <EventIcon />}
+		<Animated.View {...panResponder.panHandlers} style={[styles.container, { opacity: todo.done ? 0.6 : 1, transform: [{ translateX }] }]}>
+			{todo.categories === Categories.DEFAULT && <TaskIcon />}
+			{todo.categories === Categories.GOAL && <GoalIcon />}
+			{todo.categories === Categories.EVENT && <EventIcon />}
 
 			<View style={styles.titles}>
 				<ThemedText style={{ textDecorationLine: todo.done ? 'line-through' : 'none' }} type='defaultSemiBold'>
@@ -36,7 +74,7 @@ const TaskView: FC<TaskProps> = ({ todo, setValue }) => {
 			</View>
 
 			<Checkbox color={Colors.dark.primary} style={[styles.checkbox, { backgroundColor: Colors.light.background }]} value={todo.done} onValueChange={onCheckboxChange} />
-		</View>
+		</Animated.View>
 	);
 };
 

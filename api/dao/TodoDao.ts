@@ -41,7 +41,7 @@ class TodoDao implements IDao<ITodo> {
 	}
 	save(model: ITodo): ITodo {
 		const categoryQuery = `SELECT id FROM Categories WHERE name = ? LIMIT 1`;
-		const categoryResult = this.db.getFirstSync<{id:number}>(categoryQuery, [model.categories]);
+		const categoryResult = this.db.getFirstSync<{ id: number }>(categoryQuery, [model.categories]);
 		const categoryId = categoryResult?.id ?? null;
 		if (!categoryId) {
 			throw new Error(`Категорія "${model.categories}" не знайдена`);
@@ -79,7 +79,8 @@ class TodoDao implements IDao<ITodo> {
 	}
 
 	delete(id: number): void {
-		throw new Error('Method not implemented.');
+		const query = `DELETE FROM Todos WHERE id = ?`;
+		this.db.runSync(query, [id]);
 	}
 }
 

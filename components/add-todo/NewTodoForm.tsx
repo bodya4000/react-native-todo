@@ -7,9 +7,9 @@ import DateService from '@/utils/date';
 import { useNavigation } from 'expo-router';
 import React, { FC, useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Alert, Button, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
-import { KeyboardAwareScrollView, KeyboardToolbar } from 'react-native-keyboard-controller';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import PrimaryButton from '../common/PrimaryButton';
 import { ThemedText } from '../common/ThemedText';
 import EventIcon from '../ui/EventIcon';
@@ -62,7 +62,7 @@ const NewTodoForm: FC = () => {
 
 	return (
 		<>
-			<KeyboardAwareScrollView bottomOffset={62} style={styles.layout}>
+			<KeyboardAwareScrollView showsVerticalScrollIndicator={false} bottomOffset={62} style={styles.layout}>
 				<Controller
 					name='name'
 					control={control}
@@ -97,7 +97,7 @@ const NewTodoForm: FC = () => {
 					rules={{ required: 'Date & Time is required' }}
 					render={({ field }) => (
 						<View style={[styles.date_container, { marginBottom: showDatePicker ? Spacing.xs : Spacing.x2l }]}>
-							<FormDateInput label='Date & Time' value={field.value ? DateService.toUIFormat(field.value) : 'Select Date'} onPress={() => setShowDatePicker(true)} containerStyle={{ flex: 1 }} />
+							<FormDateInput label='Date & Time' value={field.value ? DateService.toUIFormat(field.value) : 'Select Date'} onPress={() => setShowDatePicker(value => !value)} containerStyle={{ flex: 1 }} />
 							{errors.date && <ThemedText style={{ color: 'red', bottom: -Spacing.lg, left: 0, position: 'absolute' }}>{errors.date.message}</ThemedText>}
 						</View>
 					)}
@@ -105,22 +105,29 @@ const NewTodoForm: FC = () => {
 
 				{showDatePicker && (
 					<View style={styles.pickerContainer}>
-						<DatePicker minimumDate={new Date()} mode='datetime' date={date} onDateChange={setDate} />
-						<Button title='Pick' onPress={pickDate} />
+						<DatePicker dividerColor={Colors.light.primary} minimumDate={new Date()} mode='datetime' date={date} onDateChange={setDate} style={{ marginLeft: -50, flex: 1 }} />
+
+						<TouchableOpacity style={styles.picker_button} onPress={pickDate}>
+							<ThemedText style={styles.picker_button_text}>Pick</ThemedText>
+						</TouchableOpacity>
 					</View>
 				)}
 
 				<Controller name='notes' control={control} render={({ field: { onChange, value } }) => <FormInput value={value} onChange={onChange} inputStyle={styles.notes} label='Notes' />} />
 			</KeyboardAwareScrollView>
-
-			<KeyboardToolbar />
-			<PrimaryButton style={styles.save_button} text='Save' onPress={handleSubmit(onSubmit)} />
+			<SafeAreaView>
+				<PrimaryButton style={styles.save_button} text='Save' onPress={handleSubmit(onSubmit)} />
+			</SafeAreaView>
 		</>
 	);
 };
 
 const styles = StyleSheet.create({
-	layout: { flex: 1, margin: Spacing.lg },
+	layout: {
+		flex: 1,
+		marginHorizontal: Spacing.md,
+		marginTop: Spacing.md,
+	},
 	titleContainer: { marginBottom: Spacing.x2l },
 	categories: {
 		flexDirection: 'row',
@@ -128,11 +135,11 @@ const styles = StyleSheet.create({
 		gap: Spacing.md,
 		marginBottom: Spacing.x2l,
 	},
-	categories__label: { marginRight: Spacing.xl },
+	categories__label: { marginRight: Spacing.md },
 	categories__icon: {
-		width: 60,
-		height: 60,
-		borderRadius: 30,
+		width: 48,
+		height: 48,
+		borderRadius: 24,
 		borderWidth: 2,
 		borderColor: Colors.light.background,
 		alignItems: 'center',
@@ -141,10 +148,10 @@ const styles = StyleSheet.create({
 	category_item: { alignItems: 'center', gap: Spacing.xs },
 	picked_category: {
 		borderColor: Colors.light.primary,
-		width: 65,
-		height: 65,
-		borderRadius: 40,
-		borderWidth: 3,
+		width: 55,
+		height: 55,
+		borderRadius: 25,
+		borderWidth: 2,
 	},
 	date_container: {
 		flexDirection: 'row',
@@ -156,8 +163,18 @@ const styles = StyleSheet.create({
 	pickerContainer: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		justifyContent: 'space-between',
-		marginVertical: Spacing.sm,
+		justifyContent: 'center',
+	},
+	picker_button: {
+		paddingVertical: Spacing.xs,
+		paddingHorizontal: Spacing.xl,
+		backgroundColor: Colors.light.background,
+		borderWidth: 3,
+		borderColor: Colors.light.primary,
+		borderRadius: 20,
+	},
+	picker_button_text: {
+		color: Colors.light.primary,
 	},
 	notes: {
 		height: 200,
@@ -165,9 +182,7 @@ const styles = StyleSheet.create({
 		marginBottom: Spacing.x2l,
 	},
 	save_button: {
-		position: 'absolute',
-		bottom: Spacing.xl,
-		marginBottom: Spacing.xl,
+		marginTop: Spacing.md,
 	},
 });
 

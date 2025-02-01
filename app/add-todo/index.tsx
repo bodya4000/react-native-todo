@@ -11,7 +11,7 @@ const AddTodo: FC = () => {
 		<>
 			<Stack.Screen options={{ headerShown: false }} />
 			<View style={styles.layout}>
-				<Header subtitle='Add New Task' goBackButton style={{ flex: 0.15}} />
+				<Header subtitle='Add New Task' goBackButton style={{ flex: 0.1}} />
 				<NewTodoForm />
 			</View>
 		</>

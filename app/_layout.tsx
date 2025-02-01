@@ -1,5 +1,5 @@
 import TodoDao from '@/api/dao/TodoDao';
-import { migrateDbIfNeeded } from '@/api/db';
+import { setupDatabase } from '@/api/db';
 import TodosService from '@/api/services/TodoService';
 import { DarkTheme, ThemeProvider } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -36,7 +36,7 @@ export default function RootLayout() {
 
 	return (
 		<>
-			<SQLiteProvider databaseName='todos_db' onInit={migrateDbIfNeeded} useSuspense>
+			<SQLiteProvider databaseName='todos_db' onInit={setupDatabase} useSuspense>
 				<QueryClientProvider client={queryClient}>
 					<ThemeProvider value={DarkTheme}>
 						<KeyboardProvider>
