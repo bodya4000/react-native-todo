@@ -6,7 +6,7 @@ interface SearchState {
 	updateText: (text: string) => void;
 
 	selectedCategory: Categories | undefined;
-	setCategory: (category: Categories) => void;
+	setCategory: (category: Categories | undefined) => void;
 }
 
 export const useStore = create<SearchState>()(set => ({
@@ -16,7 +16,7 @@ export const useStore = create<SearchState>()(set => ({
 	},
 
 	selectedCategory: undefined,
-	setCategory: (category: Categories) => {
+	setCategory: (category: Categories | undefined) => {
 		set(() => ({ selectedCategory: category }));
 	},
 }));

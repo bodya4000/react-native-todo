@@ -19,7 +19,7 @@ const PickCategory = () => {
 
 				<View style={styles.categories}>
 					{Object.values(Categories).map(category => (
-						<TouchableOpacity key={category} onPress={() => setCategory(category)} style={[selectedCategory === category && styles.pickedCategory]}>
+						<TouchableOpacity key={category} onPress={() => setCategory(selectedCategory == category ? undefined : category)} style={[styles.category, selectedCategory === category && styles.pickedCategory]}>
 							<CategoryIcon category={category} />
 						</TouchableOpacity>
 					))}
@@ -51,6 +51,10 @@ const styles = StyleSheet.create({
 		borderColor: Colors.light.primary,
 		borderRadius: '50%',
 		borderWidth: 2,
+		padding: 0,
+	},
+	category: {
+		padding: 2,
 	},
 });
 
