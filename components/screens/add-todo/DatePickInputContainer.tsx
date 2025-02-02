@@ -5,8 +5,8 @@ import React, { useCallback, useState } from 'react';
 import { Control, Controller, FieldErrors, UseFormSetValue } from 'react-hook-form';
 import { Alert, StyleSheet, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
-import SecondaryButton from '../common/SecondaryButton';
-import { ThemedText } from '../common/ThemedText';
+import SecondaryButton from '../../common/SecondaryButton';
+import { ThemedText } from '../../common/ThemedText';
 import FormDateInput from './FormDateInput';
 import { FormValues } from './NewTodoForm';
 

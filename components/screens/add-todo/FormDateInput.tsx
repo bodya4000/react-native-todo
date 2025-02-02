@@ -2,7 +2,7 @@ import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import { FC } from 'react';
 import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
-import { ThemedText } from '../common/ThemedText';
+import { ThemedText } from '../../common/ThemedText';
 
 interface FormInputProps {
 	value: string;

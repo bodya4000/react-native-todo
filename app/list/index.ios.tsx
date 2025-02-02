@@ -1,7 +1,8 @@
 import Header from '@/components/common/Header';
 import PrimaryButton from '@/components/common/PrimaryButton';
-import CompletedTasks from '@/components/list/CompletedTasks';
-import Tasks from '@/components/list/Tasks';
+import CompletedTasks from '@/components/screens/list/CompletedTasks';
+import SearchBlock from '@/components/screens/list/SearchBlock';
+import Tasks from '@/components/screens/list/Tasks';
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import { Stack, useRouter } from 'expo-router';
@@ -16,6 +17,7 @@ const List: FC = () => {
 			<SafeAreaView style={styles.layout}>
 				<Header style={styles.headerContainer} title='My Todo List' subtitle='October 20, 2022' />
 				<ScrollView contentContainerStyle={styles.content}>
+					<SearchBlock />
 					<Tasks />
 					<CompletedTasks />
 				</ScrollView>

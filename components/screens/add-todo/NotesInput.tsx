@@ -2,7 +2,7 @@ import { Spacing } from '@/constants/Spacing';
 import React, { FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { StyleSheet } from 'react-native';
-import DefaultInput from './DefaultInput';
+import DefaultInput from '../../common/DefaultInput';
 import { FormValues } from './NewTodoForm';
 
 interface NotesInputProps {

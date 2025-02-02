@@ -1,8 +1,8 @@
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { NativeSyntheticEvent, StyleSheet, TextInput, TextInputChangeEventData, TextStyle, View, ViewStyle } from 'react-native';
-import { ThemedText } from '../common/ThemedText';
+import { ThemedText } from './ThemedText';
 
 interface FormInputProps {
 	value: string;
@@ -11,21 +11,25 @@ interface FormInputProps {
 	label?: string;
 	containerStyle?: ViewStyle;
 	inputStyle?: TextStyle;
+	placeHolder: string;
 }
 
-const DefaultInput: FC<FormInputProps> = ({ value, onChange, label, containerStyle, inputStyle }) => {
+const DefaultInput: FC<FormInputProps> = ({ value, onChange, label, containerStyle, inputStyle, placeHolder }) => {
 	const handleChange = (data: NativeSyntheticEvent<TextInputChangeEventData>) => {
 		onChange(data.nativeEvent.text);
 	};
+
 	return (
-		<View style={[styles.container, containerStyle]}>
-			{label && (
-				<ThemedText type='subtitle' style={styles.label}>
-					{label}
-				</ThemedText>
-			)}
-			<TextInput multiline={true} style={[styles.input, inputStyle]} value={value} onChange={handleChange} placeholder={label} />
-		</View>
+		<>
+			<View style={[styles.container, containerStyle]}>
+				{label && (
+					<ThemedText type='subtitle' style={styles.label}>
+						{label}
+					</ThemedText>
+				)}
+				<TextInput multiline={true} style={[styles.input, inputStyle]} value={value} onChange={handleChange} placeholder={label || placeHolder} />
+			</View>
+		</>
 	);
 };
 

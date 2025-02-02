@@ -1,16 +1,20 @@
 import { todoService } from '@/app/_layout';
 import { Categories } from '@/constants/Categories';
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
-const useTodos = ({ categories, done }: { categories?: Categories; done?: boolean }) => {
+const useTodos = ({ categories, done, searchText }: { categories?: Categories; done?: boolean; searchText?: string }) => {
 	const queryKey = ['todos', done];
 	const queryFn = () => {
-		if (done === true) return todoService.getCompletedTodos();
-		if (done === false) return todoService.getUncompletedTodos();
-		return todoService.getAllTodos();
+		if (done === true) return todoService.getCompletedTodos({ searchText });
+		if (done === false) return todoService.getUncompletedTodos({ searchText });
+		return todoService.getAllTodos({ searchText });
 	};
-
-	return useQuery({ queryKey, queryFn });
+	const queryData = useQuery({ queryKey, queryFn });
+	useEffect(() => {
+		queryData.refetch();
+	}, [searchText]);
+	return queryData;
 };
 
 export default useTodos;

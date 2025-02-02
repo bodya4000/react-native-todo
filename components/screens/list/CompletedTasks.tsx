@@ -4,11 +4,13 @@ import { Spacing } from '@/constants/Spacing';
 import useTodos from '@/hooks/useTodos';
 import { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ThemedText } from '../common/ThemedText';
+import { ThemedText } from '../../common/ThemedText';
 import TaskView from './TaskView';
+import { useStore } from '@/zustand/store'
 
 const CompletedTasks: FC = () => {
-	const { data } = useTodos({ done: true });
+	const { searchText } = useStore();
+	const { data } = useTodos({ done: true, searchText});
 	const toggleTodoStatus = (id: number, newStatus: boolean) => {
 		todoService.toggleTodoStatus(id, newStatus);
 	};

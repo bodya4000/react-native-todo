@@ -9,7 +9,7 @@ import { debounce } from '@/utils/helpers';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import React, { FC, useCallback, useRef } from 'react';
 import { Animated, PanResponder, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { ThemedText } from '../common/ThemedText'
+import { ThemedText } from '../../common/ThemedText';
 
 interface TaskProps {
 	todo: ITodo;

@@ -1,10 +1,10 @@
 import { SQLiteDatabase } from 'expo-sqlite';
 
 async function enableForeignKeys(db: SQLiteDatabase) {
-	await db.execAsync(`PRAGMA foreign_keys = ON;`);
+	await db.runAsync(`PRAGMA foreign_keys = ON;`);
 }
 async function createTableCategories(db: SQLiteDatabase) {
-	await db.execAsync(`
+	await db.runAsync(`
 		CREATE TABLE IF NOT EXISTS Categories (
 			id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 			name TEXT NOT NULL UNIQUE
@@ -12,7 +12,7 @@ async function createTableCategories(db: SQLiteDatabase) {
 	`);
 }
 async function createTableTodos(db: SQLiteDatabase) {
-	await db.execAsync(`
+	await db.runAsync(`
 		CREATE TABLE IF NOT EXISTS Todos (
 			id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 			title TEXT NOT NULL, 
@@ -26,12 +26,12 @@ async function createTableTodos(db: SQLiteDatabase) {
 }
 
 async function clearTables(db: SQLiteDatabase) {
-	await db.execAsync(`DELETE FROM Categories;`);
-	await db.execAsync(`DELETE FROM Todos;`);
+	await db.runAsync(`DELETE FROM Categories;`);
+	await db.runAsync(`DELETE FROM Todos;`);
 }
 
 async function fillCategories(db: SQLiteDatabase) {
-	await db.execAsync(`
+	await db.runAsync(`
 		INSERT INTO Categories (name) VALUES
 		('DEFAULT'),
 		('GOAL'),
@@ -45,7 +45,7 @@ async function fillTodos(db: SQLiteDatabase) {
 	const goalId = categories.find(cat => cat.name === 'GOAL')?.id || 2;
 	const eventId = categories.find(cat => cat.name === 'EVENT')?.id || 3;
 
-	await db.execAsync(`
+	await db.runAsync(`
 		INSERT INTO Todos (title, done, due_time, category_fk_id) VALUES
 		('Complete React Native app', 0, '2024-02-10 14:00:00', ${taskId}),
 		('Fix database migration', 1, NULL, ${goalId}),
@@ -57,9 +57,9 @@ async function fillTodos(db: SQLiteDatabase) {
 
 export async function setupDatabase(db: SQLiteDatabase) {
 	await enableForeignKeys(db)
-	await createTableCategories(db)
-	await createTableTodos(db)
-	await clearTables(db)
-	await fillCategories(db)
-	await fillTodos(db)
+	// await createTableCategories(db)
+	// await createTableTodos(db)
+	// await clearTables(db)
+	// await fillCategories(db)
+	// await fillTodos(db)
 }

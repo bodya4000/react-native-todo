@@ -1,6 +1,6 @@
 import TodoDao from '@/api/dao/TodoDao';
 import { setupDatabase } from '@/api/db';
-import QueryClientService from '@/api/services/QueryClientService'
+import QueryClientService from '@/api/services/QueryClientService';
 import TodosService from '@/api/services/TodoService';
 import { Colors } from '@/constants/Colors';
 import { DarkTheme, ThemeProvider } from '@react-navigation/native';
@@ -19,9 +19,8 @@ import ToastManager from 'toastify-react-native';
 const queryClient = new QueryClient();
 const db = openDatabaseSync('todos_db');
 const todoDao = new TodoDao(db);
-const queryClientService = new QueryClientService(queryClient)
-export const todoService = new TodosService(todoDao,queryClientService);
-
+export const queryClientService = new QueryClientService(queryClient);
+export const todoService = new TodosService(todoDao, queryClientService);
 
 SplashScreen.preventAutoHideAsync();
 

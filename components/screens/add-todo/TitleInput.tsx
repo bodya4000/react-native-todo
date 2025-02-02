@@ -2,9 +2,9 @@ import { Spacing } from '@/constants/Spacing';
 import React, { FC } from 'react';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 import { StyleSheet, View } from 'react-native';
-import { ThemedText } from '../common/ThemedText';
-import DefaultInput from './DefaultInput';
-import { FormValues } from './NewTodoForm'
+import DefaultInput from '../../common/DefaultInput';
+import { ThemedText } from '../../common/ThemedText';
+import { FormValues } from './NewTodoForm';
 
 interface TitleInputProps {
 	control: Control<FormValues>;

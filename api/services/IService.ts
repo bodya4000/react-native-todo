@@ -1,9 +1,9 @@
 import { ITodo } from '@/types/ITodo';
 
 export default interface IService {
-	getAllTodos(): Promise<ITodo[]>;
-	getCompletedTodos(): Promise<ITodo[]>;
-	getUncompletedTodos(): Promise<ITodo[]>;
+	getAllTodos(params: { searchText?: string }): Promise<ITodo[]>;
+	getCompletedTodos(params: { searchText?: string }): Promise<ITodo[]>;
+	getUncompletedTodos(params: { searchText?: string }): Promise<ITodo[]>;
 	// getByCategoryTodos(): Promise<ITodo[]>;
 
 	// updateTodo(id: number, updates: Partial<ITodo>): Promise<ITodo>;
