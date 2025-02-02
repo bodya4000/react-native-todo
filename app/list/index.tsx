@@ -1,7 +1,8 @@
 import Header from '@/components/common/Header';
 import PrimaryButton from '@/components/common/PrimaryButton';
 import CompletedTasks from '@/components/screens/list/CompletedTasks';
-import SearchBlock from '@/components/screens/list/SearchBlock'
+import PickCategory from '@/components/screens/list/PickCategory';
+import SearchBlock from '@/components/screens/list/SearchBlock';
 import Tasks from '@/components/screens/list/Tasks';
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
@@ -19,9 +20,11 @@ const List: FC = () => {
 				<Header style={styles.headerContainer} title='My Todo List' subtitle='October 20, 2022' />
 				<View style={styles.contentContainer}>
 					<ScrollView contentContainerStyle={styles.content}>
+						<PickCategory />
 						<SearchBlock />
 						<Tasks />
 						<CompletedTasks />
+						<View style={styles.spacer} />
 						<PrimaryButton style={styles.add_new_task__button} text='Add new task' onPress={() => router.push('/add-todo')} />
 					</ScrollView>
 				</View>
@@ -55,6 +58,9 @@ const styles = StyleSheet.create({
 		borderTopRightRadius: 50,
 		overflow: 'hidden',
 		paddingTop: 20,
+	},
+	spacer: {
+		flex: 1,
 	},
 	add_new_task__button: {
 		marginTop: Spacing.lg,

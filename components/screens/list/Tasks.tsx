@@ -8,8 +8,8 @@ import { StyleSheet, View } from 'react-native';
 import TaskView from './TaskView';
 
 const Tasks: FC = () => {
-	const { searchText } = useStore();
-	const { data } = useTodos({ done: false, searchText });
+	const { searchText, selectedCategory } = useStore();
+	const { data } = useTodos({ done: false, searchText, categories: selectedCategory });
 	const toggleTodoStatus = (id: number, newStatus: boolean) => {
 		todoService.toggleTodoStatus(id, newStatus);
 	};

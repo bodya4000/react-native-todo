@@ -9,8 +9,8 @@ import TaskView from './TaskView';
 import { useStore } from '@/zustand/store'
 
 const CompletedTasks: FC = () => {
-	const { searchText } = useStore();
-	const { data } = useTodos({ done: true, searchText});
+	const { searchText,selectedCategory } = useStore();
+	const { data } = useTodos({ done: true, searchText, categories:selectedCategory});
 	const toggleTodoStatus = (id: number, newStatus: boolean) => {
 		todoService.toggleTodoStatus(id, newStatus);
 	};
