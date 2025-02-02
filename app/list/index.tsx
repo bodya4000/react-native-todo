@@ -6,6 +6,7 @@ import SearchBlock from '@/components/screens/list/SearchBlock';
 import Tasks from '@/components/screens/list/Tasks';
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
+import DateService from '@/utils/date'
 import { Stack, useRouter } from 'expo-router';
 import React, { FC } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
@@ -17,7 +18,7 @@ const List: FC = () => {
 		<>
 			<Stack.Screen options={{ headerShown: false }} />
 			<SafeAreaView style={styles.layout}>
-				<Header style={styles.headerContainer} title='My Todo List' subtitle='October 20, 2022' />
+				<Header style={styles.headerContainer} title='My Todo List' subtitle={DateService.toUIFormat(new Date())} />
 				<View style={styles.contentContainer}>
 					<ScrollView contentContainerStyle={styles.content}>
 						<PickCategory />

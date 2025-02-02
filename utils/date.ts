@@ -28,7 +28,6 @@ export default class DateService {
 			}
 			date = uiFormatDateObject;
 		}
-		return `${padZero(date.getDate())} ${MonthConverter.fromNumberToMonth(date.getMonth() + 1)} ${padZero(date.getHours())}:${padZero(date.getMinutes())}`;
+		return `${date.getDate()} ${MonthConverter.fromNumberToMonth(date.getMonth() + 1)} ${padZero(date.getHours())}:${padZero(date.getMinutes())}`;
 	}
 }
-
