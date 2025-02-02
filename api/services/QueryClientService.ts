@@ -10,6 +10,7 @@ class QueryClientService {
 		this.queryClient.invalidateQueries({ queryKey: ['todos', true] });
 		this.queryClient.invalidateQueries({ queryKey: ['todos', false] });
 		this.queryClient.invalidateQueries({ queryKey: ['todos', undefined] });
+		this.queryClient.invalidateQueries({ queryKey: ['todos'] });
 	}
 }
 

@@ -1,6 +1,7 @@
 import Header from '@/components/common/Header';
 import PrimaryButton from '@/components/common/PrimaryButton';
 import CompletedTasks from '@/components/screens/list/CompletedTasks';
+import PickCategory from '@/components/screens/list/PickCategory';
 import SearchBlock from '@/components/screens/list/SearchBlock';
 import Tasks from '@/components/screens/list/Tasks';
 import { Colors } from '@/constants/Colors';
@@ -17,6 +18,7 @@ const List: FC = () => {
 			<SafeAreaView style={styles.layout}>
 				<Header style={styles.headerContainer} title='My Todo List' subtitle='October 20, 2022' />
 				<ScrollView contentContainerStyle={styles.content}>
+					<PickCategory />
 					<SearchBlock />
 					<Tasks />
 					<CompletedTasks />

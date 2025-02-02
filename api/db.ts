@@ -26,17 +26,19 @@ async function createTableTodos(db: SQLiteDatabase) {
 }
 
 async function clearTables(db: SQLiteDatabase) {
-	await db.runAsync(`DELETE FROM Categories;`);
-	await db.runAsync(`DELETE FROM Todos;`);
+	await db.execAsync(`DELETE FROM Todos;`);
 }
 
 async function fillCategories(db: SQLiteDatabase) {
-	await db.runAsync(`
-		INSERT INTO Categories (name) VALUES
-		('DEFAULT'),
-		('GOAL'),
-		('EVENT');
-	`);
+	const rowCount = await db.getAllAsync<number>('SELECT COUNT(*) as count FROM Categories');
+	if (rowCount[0] === 0) {
+		await db.runAsync(`
+			INSERT INTO Categories (name) VALUES
+			('DEFAULT'),
+			('GOAL'),
+			('EVENT');
+		`);
+	}
 }
 
 async function fillTodos(db: SQLiteDatabase) {
@@ -56,10 +58,9 @@ async function fillTodos(db: SQLiteDatabase) {
 }
 
 export async function setupDatabase(db: SQLiteDatabase) {
-	await enableForeignKeys(db)
-	// await createTableCategories(db)
-	// await createTableTodos(db)
-	// await clearTables(db)
-	// await fillCategories(db)
-	// await fillTodos(db)
+	await enableForeignKeys(db);
+	await createTableCategories(db);
+	await createTableTodos(db);
+	await fillCategories(db);
+	// await clearTables(db);
 }

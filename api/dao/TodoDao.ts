@@ -46,11 +46,9 @@ class TodoDao implements IDao<ITodo> {
 		if (!categoryId) {
 			throw new Error(`Категорія "${model.categories}" не знайдена`);
 		}
-		console.log('model:', model);
 		const query = `INSERT INTO Todos (title, done, due_time, category_fk_id) VALUES (?, ?, ?, ?)`;
 		const values = [model.title, model.done ? 1 : 0, model.date ? DateService.toSqliteFormat(model.date) : null, categoryId];
-		console.log('inserting..');
-		this.db.runSync(query, values);
+		this.db.runAsync(query, values);
 		return model;
 	}
 
@@ -75,12 +73,13 @@ class TodoDao implements IDao<ITodo> {
 
 		const query = `UPDATE Todos SET ${fields.join(', ')} WHERE id = ?`;
 		values.push(id);
-		this.db.runSync(query, values);
+		this.db.runAsync(query, values);
 	}
 
 	delete(id: number): void {
+		console.log(id);
 		const query = `DELETE FROM Todos WHERE id = ?`;
-		this.db.runSync(query, [id]);
+		this.db.runAsync(query, [id]);
 	}
 }
 

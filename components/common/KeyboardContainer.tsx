@@ -25,9 +25,11 @@ const KeyboardContainer: FC<KeyboardContainerProps> = ({ children, style }) => {
 			<KeyboardAwareScrollView showsVerticalScrollIndicator={false} bottomOffset={100} style={[{ flex: 1 }, style]}>
 				{children}
 			</KeyboardAwareScrollView>
-			<View style={{ position: 'absolute', backgroundColor: 'red', bottom: 0, zIndex: 100000000 }}>
-				<KeyboardToolbar />
-			</View>
+			{showToolbar && (
+				<View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
+					<KeyboardToolbar/>
+				</View>
+			)}
 		</>
 	);
 };

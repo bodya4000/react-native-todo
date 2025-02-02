@@ -9,7 +9,7 @@ import TaskView from './TaskView';
 
 const Tasks: FC = () => {
 	const { searchText, selectedCategory } = useStore();
-	const { data } = useTodos({ done: false, searchText, categories: selectedCategory });
+	const { data } = useTodos({ done: false, searchText, categories: selectedCategory });	
 	const toggleTodoStatus = (id: number, newStatus: boolean) => {
 		todoService.toggleTodoStatus(id, newStatus);
 	};
