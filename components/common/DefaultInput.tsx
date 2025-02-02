@@ -36,6 +36,7 @@ const DefaultInput: FC<FormInputProps> = ({ value, onChange, label, containerSty
 const styles = StyleSheet.create({
 	container: {
 		gap: Spacing.sm,
+		borderRadius: 5,
 	},
 	label: {},
 	input: {
@@ -43,7 +44,6 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: '#E0E0E0',
 		padding: Spacing.md,
-		borderRadius: 5,
 		fontSize: 20,
 	},
 });

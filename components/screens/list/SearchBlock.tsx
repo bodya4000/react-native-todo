@@ -2,6 +2,7 @@ import { Spacing } from '@/constants/Spacing';
 import { useStore } from '@/zustand/store';
 import { StyleSheet, View } from 'react-native';
 import DefaultInput from '../../common/DefaultInput';
+import { Colors } from '@/constants/Colors'
 
 const SearchBlock = () => {
 	const { searchText, updateText } = useStore();

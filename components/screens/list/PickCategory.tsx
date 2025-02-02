@@ -20,7 +20,7 @@ const PickCategory = () => {
 				<View style={styles.categories}>
 					{Object.values(Categories).map(category => (
 						<TouchableOpacity key={category} onPress={() => setCategory(selectedCategory == category ? undefined : category)} style={[styles.category, selectedCategory === category && styles.pickedCategory]}>
-							<CategoryIcon category={category} />
+							<CategoryIcon category={category} style={{width:36, height:40}}/>
 						</TouchableOpacity>
 					))}
 				</View>
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		gap: Spacing.sm,
+		borderRadius: 10,
 	},
 	pickedCategory: {
 		borderColor: Colors.light.primary,
