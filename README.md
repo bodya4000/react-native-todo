@@ -1,50 +1,48 @@
-# Welcome to your Expo app 👋
+# Todo App (React Native) 👋  
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is a task management application built with React Native.  
 
-## Get started
+## Features  
+- Set up app routing.  
+- Implemented state management.  
+- Display a list of all tasks.  
+- Add and remove tasks from the list.  
+- Task categorization.  
+- Search and filter tasks by status (all/done/undone).  
+- Mark tasks as completed.  
 
-1. Install dependencies
+## Development Stages  
+1. **Project initialization**  
+   - Set up the project and removed unnecessary files.  
+2. **Home screen UI**  
+   - Installed category icons.  
+   - Configured base project colors and spacing.  
+   - Designed the home screen UI.  
+3. **Task form screen UI**  
+   - Created the task form screen.  
+4. **UI fixes**  
+   - Fixed UI for Android and iOS separately.  
+5. **Integrated TanStack Query and SQLite**  
+   - Added TanStack Query and SQLite dependencies.  
+6. **Task status updates**  
+   - Configured the SQLite database.  
+   - Created the `useTodos` hook.  
+   - Added the ability to update task status.  
+7. **Keyboard behavior improvements**  
+   - Implemented smooth keyboard appearance and adaptive layout.  
+8. **Form logic and validation**  
+   - Installed React Hook Form.  
+   - Added input controllers.  
+   - Configured validation and error handling.  
+9. **Refactoring and UX fixes**  
+   - Improved form UX and performed code refactoring.  
+10. **Swipe-to-delete functionality**  
+    - Implemented smooth gesture handling for swipe deletion.  
+11. **Search and filtering**  
+    - Added the ability to filter tasks by search text.  
+12. **Task categorization**  
+    - Implemented filtering by task category.  
 
-   ```bash
-   npm install
-   ```
+---
 
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+🚀 This project is designed to provide a simple and efficient way to manage daily tasks. Contributions and feedback are welcome!
