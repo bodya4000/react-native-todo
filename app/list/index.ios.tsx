@@ -17,7 +17,7 @@ const List: FC = () => {
 		<>
 			<Stack.Screen options={{ headerShown: false }} />
 			<SafeAreaView style={styles.layout}>
-				<Header style={styles.headerContainer} title='My Todo List' subtitle={DateService.toUIFormat(new Date())} />
+				<Header style={styles.header_container} title='My Todo List' subtitle={DateService.toUIFormat(new Date())} />
 				<ScrollView contentContainerStyle={styles.content}>
 					<PickCategory />
 					<SearchBlock />
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 		backgroundColor: Colors.light.backgroundSecondary,
 		flex: 1,
 	},
-	headerContainer: {
+	header_container: {
 		height: 300,
 		position: 'absolute',
 		top: 0,

@@ -30,15 +30,6 @@ class TodoDao implements IDao<ITodo> {
 		return todos;
 	}
 
-	getAllByCategory(category: Categories): Promise<ITodo[]> {
-		throw new Error('Method not implemented.');
-	}
-	getAllByStatus(status: boolean): Promise<ITodo[]> {
-		throw new Error('Method not implemented.');
-	}
-	getById(id: number): Promise<ITodo> {
-		throw new Error('Method not implemented.');
-	}
 	save(model: ITodo): ITodo {
 		const categoryQuery = `SELECT id FROM Categories WHERE name = ? LIMIT 1`;
 		const categoryResult = this.db.getFirstSync<{ id: number }>(categoryQuery, [model.categories]);
@@ -77,7 +68,6 @@ class TodoDao implements IDao<ITodo> {
 	}
 
 	delete(id: number): void {
-		console.log(id);
 		const query = `DELETE FROM Todos WHERE id = ?`;
 		this.db.runAsync(query, [id]);
 	}

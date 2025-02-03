@@ -25,10 +25,6 @@ async function createTableTodos(db: SQLiteDatabase) {
 	`);
 }
 
-async function clearTables(db: SQLiteDatabase) {
-	await db.execAsync(`DELETE FROM Todos;`);
-}
-
 async function fillCategories(db: SQLiteDatabase) {
 	const rowCount = await db.getAllAsync<number>('SELECT COUNT(*) as count FROM Categories');
 	if (rowCount[0] === 0) {
@@ -41,26 +37,9 @@ async function fillCategories(db: SQLiteDatabase) {
 	}
 }
 
-async function fillTodos(db: SQLiteDatabase) {
-	const categories = await db.getAllAsync(`SELECT id, name FROM Categories;`);
-	const taskId = categories.find(cat => cat.name === 'DEFAULT')?.id || 1;
-	const goalId = categories.find(cat => cat.name === 'GOAL')?.id || 2;
-	const eventId = categories.find(cat => cat.name === 'EVENT')?.id || 3;
-
-	await db.runAsync(`
-		INSERT INTO Todos (title, done, due_time, category_fk_id) VALUES
-		('Complete React Native app', 0, '2024-02-10 14:00:00', ${taskId}),
-		('Fix database migration', 1, NULL, ${goalId}),
-		('Write unit tests', 0, '2024-02-12 09:30:00', ${eventId}),
-		('Review PRs', 1, '2024-02-08 16:45:00', ${taskId}),
-		('Update documentation', 0, NULL, ${goalId});
-`);
-}
-
 export async function setupDatabase(db: SQLiteDatabase) {
 	await enableForeignKeys(db);
 	await createTableCategories(db);
 	await createTableTodos(db);
 	await fillCategories(db);
-	// await clearTables(db);
 }
