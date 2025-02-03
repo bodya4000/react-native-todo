@@ -1,8 +1,8 @@
+import { AppText } from '@/components/common/AppText'
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import { FC } from 'react';
 import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
-import { ThemedText } from '../../common/ThemedText';
 
 interface FormInputProps {
 	value: string;
@@ -18,12 +18,12 @@ const FormDateInput: FC<FormInputProps> = ({ value, onPress, label, containerSty
 	return (
 		<View style={[styles.container, containerStyle]}>
 			{label && (
-				<ThemedText type='subtitle' style={styles.label}>
+				<AppText type='subtitle' style={styles.label}>
 					{label}
-				</ThemedText>
+				</AppText>
 			)}
 			<TouchableOpacity onPress={onPress} style={[styles.input, inputStyle]} onPressIn={() => {}}>
-				<ThemedText>{value || label || 'Pick time...'}</ThemedText>
+				<AppText>{value || label || 'Pick time...'}</AppText>
 			</TouchableOpacity>
 		</View>
 	);

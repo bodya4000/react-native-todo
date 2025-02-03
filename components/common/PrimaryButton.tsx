@@ -2,7 +2,7 @@ import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import { FC } from 'react';
 import { StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
-import { ThemedText } from './ThemedText';
+import { AppText } from './AppText'
 
 interface PrimaryButtonProps {
 	text: string;
@@ -13,9 +13,9 @@ interface PrimaryButtonProps {
 const PrimaryButton: FC<PrimaryButtonProps> = ({ text, onPress, style }) => {
 	return (
 		<TouchableOpacity style={[styles.button, style ? style : {}]} onPress={onPress}>
-			<ThemedText type='defaultSemiBold' style={styles.text}>
+			<AppText type='defaultSemiBold' style={styles.text}>
 				{text}
-			</ThemedText>
+			</AppText>
 		</TouchableOpacity>
 	);
 };
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		textAlign: 'center',
 		color: '#fff',
-		fontSize:18
+		fontSize: 18,
 	},
 });
 

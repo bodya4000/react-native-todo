@@ -1,4 +1,4 @@
-import { ThemedText } from '@/components/common/ThemedText';
+import { AppText } from '@/components/common/AppText'
 import CategoryIcon from '@/components/ui/CategoryIcon';
 import { Categories } from '@/constants/Categories';
 import { Colors } from '@/constants/Colors';
@@ -13,14 +13,14 @@ const PickCategory = () => {
 	return (
 		<>
 			<View style={styles.container}>
-				<ThemedText style={{ fontSize: 16 }} type='subtitle'>
+				<AppText style={{ fontSize: 16 }} type='subtitle'>
 					Pick category here! <Text> 👉</Text>
-				</ThemedText>
+				</AppText>
 
 				<View style={styles.categories}>
 					{Object.values(Categories).map(category => (
 						<TouchableOpacity key={category} onPress={() => setCategory(selectedCategory == category ? undefined : category)} style={[styles.category, selectedCategory === category && styles.pickedCategory]}>
-							<CategoryIcon category={category} style={{width:36, height:40}}/>
+							<CategoryIcon category={category} style={{ width: 36, height: 40 }} />
 						</TouchableOpacity>
 					))}
 				</View>

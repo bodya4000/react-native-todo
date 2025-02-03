@@ -2,23 +2,23 @@ import { todoService } from '@/app/_layout';
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import useTodos from '@/hooks/useTodos';
+import { useStore } from '@/zustand/store';
 import { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ThemedText } from '../../common/ThemedText';
 import TaskView from './TaskView';
-import { useStore } from '@/zustand/store'
+import { AppText } from '@/components/common/AppText'
 
 const CompletedTasks: FC = () => {
-	const { searchText,selectedCategory } = useStore();
-	const { data } = useTodos({ done: true, searchText, categories:selectedCategory});
+	const { searchText, selectedCategory } = useStore();
+	const { data } = useTodos({ done: true, searchText, categories: selectedCategory });
 	const toggleTodoStatus = (id: number, newStatus: boolean) => {
 		todoService.toggleTodoStatus(id, newStatus);
 	};
 	return (
 		<View style={{ flex: 1, backgroundColor: Colors.light.backgroundSecondary }}>
-			<ThemedText type='subtitle' style={[styles.title]}>
+			<AppText type='subtitle' style={[styles.title]}>
 				Completed
-			</ThemedText>
+			</AppText>
 
 			<View style={styles.container}>
 				{data?.map(todo => {

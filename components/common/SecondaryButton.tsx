@@ -1,8 +1,8 @@
+import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import React, { FC } from 'react';
 import { StyleSheet, TouchableOpacity, TouchableOpacityProps } from 'react-native';
-import { ThemedText } from './ThemedText';
-import { Colors } from '@/constants/Colors'
+import { AppText } from './AppText'
 
 interface SecondaryButtonProps extends TouchableOpacityProps {
 	title: string;
@@ -11,7 +11,7 @@ interface SecondaryButtonProps extends TouchableOpacityProps {
 const SecondaryButton: FC<SecondaryButtonProps> = ({ title, ...props }) => {
 	return (
 		<TouchableOpacity style={styles.button} {...props}>
-			<ThemedText style={styles.button_text}>{title}</ThemedText>
+			<AppText style={styles.button_text}>{title}</AppText>
 		</TouchableOpacity>
 	);
 };

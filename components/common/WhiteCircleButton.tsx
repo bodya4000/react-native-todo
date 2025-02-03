@@ -1,7 +1,7 @@
 import { Colors } from '@/constants/Colors';
 import { FC, ReactNode } from 'react';
 import { StyleSheet, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native';
-import { ThemedText } from './ThemedText';
+import { AppText } from './AppText'
 
 interface WhiteCircleButtonProps extends TouchableOpacityProps {
 	style?: ViewStyle;
@@ -12,7 +12,7 @@ interface WhiteCircleButtonProps extends TouchableOpacityProps {
 const WhiteCircleButton: FC<WhiteCircleButtonProps> = ({ content, style, ...rest }) => {
 	return (
 		<TouchableOpacity {...rest} style={[styles.button, style]}>
-			<ThemedText style={styles.text}>{content}</ThemedText>
+			<AppText style={styles.text}>{content}</AppText>
 		</TouchableOpacity>
 	);
 };

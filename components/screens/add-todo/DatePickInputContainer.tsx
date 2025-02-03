@@ -6,9 +6,9 @@ import { Control, Controller, FieldErrors, UseFormSetValue } from 'react-hook-fo
 import { Alert, StyleSheet, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import SecondaryButton from '../../common/SecondaryButton';
-import { ThemedText } from '../../common/ThemedText';
 import FormDateInput from './FormDateInput';
 import { FormValues } from './NewTodoForm';
+import { AppText } from '@/components/common/AppText'
 
 interface DatePickerFieldProps {
 	control: Control<FormValues>;
@@ -36,7 +36,7 @@ const DatePickInputContainer: React.FC<DatePickerFieldProps> = ({ control, error
 				render={({ field }) => (
 					<View style={[styles.date_container, { marginBottom: showDatePicker ? Spacing.xs : Spacing.x2l }]}>
 						<FormDateInput label='Date & Time' value={field.value ? DateService.toUIFormat(field.value) : 'Select Date'} onPress={() => setShowDatePicker(value => !value)} containerStyle={{ flex: 1 }} />
-						{errors.date && <ThemedText style={{ color: 'red', bottom: -Spacing.lg, left: 0, position: 'absolute' }}>{errors.date.message}</ThemedText>}
+						{errors.date && <AppText style={{ color: 'red', bottom: -Spacing.lg, left: 0, position: 'absolute' }}>{errors.date.message}</AppText>}
 					</View>
 				)}
 			/>

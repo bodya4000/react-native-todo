@@ -3,8 +3,8 @@ import React, { FC } from 'react';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 import { StyleSheet, View } from 'react-native';
 import DefaultInput from '../../common/DefaultInput';
-import { ThemedText } from '../../common/ThemedText';
 import { FormValues } from './NewTodoForm';
+import { AppText } from '@/components/common/AppText'
 
 interface TitleInputProps {
 	control: Control<FormValues>;
@@ -18,7 +18,7 @@ const TitleInput: FC<TitleInputProps> = ({ control, errors }) => (
 		render={({ field: { onChange, value } }) => (
 			<View style={styles.titleContainer}>
 				<DefaultInput value={value} onChange={onChange} label='Task Title' />
-				{errors.name && <ThemedText style={styles.errorText}>{errors.name.message}</ThemedText>}
+				{errors.name && <AppText style={styles.errorText}>{errors.name.message}</AppText>}
 			</View>
 		)}
 	/>

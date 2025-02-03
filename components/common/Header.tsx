@@ -3,8 +3,8 @@ import { Spacing } from '@/constants/Spacing';
 import { useNavigation } from 'expo-router';
 import { FC } from 'react';
 import { Image, Platform, SafeAreaView, StatusBar, StyleSheet, View, ViewStyle } from 'react-native';
-import { ThemedText } from './ThemedText';
 import WhiteCircleButton from './WhiteCircleButton';
+import { AppText } from './AppText'
 
 interface HeaderContainerProps {
 	subtitle?: string;
@@ -21,16 +21,16 @@ const Header: FC<HeaderContainerProps> = ({ subtitle, title, goBackButton, style
 				<SafeAreaView style={styles.top_body}>
 					{goBackButton && <WhiteCircleButton onPress={goBack} style={styles.left_button} content={<Image source={require('../../assets/images/left-arrow.png')} />} />}
 					{subtitle && (
-						<ThemedText style={styles.header_subtitle} type='subtitle' lightColor='#fff' darkColor='#fff'>
+						<AppText style={styles.header_subtitle} type='subtitle' lightColor='#fff' darkColor='#fff'>
 							{subtitle}
-						</ThemedText>
+						</AppText>
 					)}
 				</SafeAreaView>
 
 				{title && (
-					<ThemedText style={styles.header_title} type='title' lightColor='#fff' darkColor='#fff'>
+					<AppText style={styles.header_title} type='title' lightColor='#fff' darkColor='#fff'>
 						{title}
-					</ThemedText>
+					</AppText>
 				)}
 			</View>
 		</SafeAreaView>

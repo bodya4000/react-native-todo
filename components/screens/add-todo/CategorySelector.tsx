@@ -3,8 +3,8 @@ import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import React, { FC } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { ThemedText } from '../../common/ThemedText';
 import CategoryIcon from '../../ui/CategoryIcon';
+import { AppText } from '@/components/common/AppText'
 
 interface CategorySelectorProps {
 	selectedCategory: Categories | undefined;
@@ -12,12 +12,12 @@ interface CategorySelectorProps {
 }
 const CategorySelector: FC<CategorySelectorProps> = ({ selectedCategory, setCategory }) => (
 	<View style={styles.categories}>
-		<ThemedText type='subtitle' style={styles.label}>
+		<AppText type='subtitle' style={styles.label}>
 			Categories
-		</ThemedText>
+		</AppText>
 		{Object.values(Categories).map(category => (
 			<TouchableOpacity key={category} style={styles.categoryItem} onPress={() => setCategory(category)}>
-				<ThemedText type='defaultSemiBold'>{category == Categories.DEFAULT ? 'TASK' : category}</ThemedText>
+				<AppText type='defaultSemiBold'>{category == Categories.DEFAULT ? 'TASK' : category}</AppText>
 				<View style={[styles.categoryIcon, selectedCategory === category && styles.pickedCategory]}>
 					<CategoryIcon category={category} />
 				</View>

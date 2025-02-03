@@ -1,5 +1,6 @@
 import ToastService from '@/api/services/ToastService';
 import { todoService } from '@/app/_layout';
+import { AppText } from '@/components/common/AppText'
 import CategoryIcon from '@/components/ui/CategoryIcon';
 import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
@@ -9,7 +10,6 @@ import { debounce } from '@/utils/helpers';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import React, { FC, useCallback, useRef } from 'react';
 import { Animated, PanResponder, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { ThemedText } from '../../common/ThemedText';
 
 interface TaskProps {
 	todo: ITodo;
@@ -65,10 +65,10 @@ const TaskView: FC<TaskProps> = ({ todo, setValue }) => {
 			<CategoryIcon category={todo.categories} />
 
 			<View style={styles.titles}>
-				<ThemedText style={{ textDecorationLine: todo.done ? 'line-through' : 'none' }} type='defaultSemiBold'>
+				<AppText style={{ textDecorationLine: todo.done ? 'line-through' : 'none' }} type='defaultSemiBold'>
 					{todo.title}
-				</ThemedText>
-				<ThemedText style={{ opacity: 0.6, textDecorationLine: todo.done ? 'line-through' : 'none' }}>{todo.date && DateService.toUIFormat(todo.date)}</ThemedText>
+				</AppText>
+				<AppText style={{ opacity: 0.6, textDecorationLine: todo.done ? 'line-through' : 'none' }}>{todo.date && DateService.toUIFormat(todo.date)}</AppText>
 			</View>
 
 			<TouchableOpacity onPress={onCheckboxChange} style={styles.checkbox_container}>

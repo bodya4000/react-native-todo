@@ -2,7 +2,7 @@ import { Colors } from '@/constants/Colors';
 import { Spacing } from '@/constants/Spacing';
 import React, { FC } from 'react';
 import { NativeSyntheticEvent, StyleSheet, TextInput, TextInputChangeEventData, TextStyle, View, ViewStyle } from 'react-native';
-import { ThemedText } from './ThemedText';
+import { AppText } from './AppText';
 
 interface FormInputProps {
 	value: string;
@@ -11,7 +11,7 @@ interface FormInputProps {
 	label?: string;
 	containerStyle?: ViewStyle;
 	inputStyle?: TextStyle;
-	placeHolder: string;
+	placeHolder?: string;
 }
 
 const DefaultInput: FC<FormInputProps> = ({ value, onChange, label, containerStyle, inputStyle, placeHolder }) => {
@@ -23,9 +23,9 @@ const DefaultInput: FC<FormInputProps> = ({ value, onChange, label, containerSty
 		<>
 			<View style={[styles.container, containerStyle]}>
 				{label && (
-					<ThemedText type='subtitle' style={styles.label}>
+					<AppText type='subtitle' style={styles.label}>
 						{label}
-					</ThemedText>
+					</AppText>
 				)}
 				<TextInput multiline={true} style={[styles.input, inputStyle]} value={value} onChange={handleChange} placeholder={label || placeHolder} />
 			</View>
