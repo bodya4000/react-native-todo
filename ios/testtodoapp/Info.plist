@@ -34,7 +34,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>exp+test-todo-app</string>
+          <string>exp+todo</string>
         </array>
       </dict>
     </array>

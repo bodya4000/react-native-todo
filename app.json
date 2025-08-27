@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "test-todo-app",
-    "slug": "test-todo-app",
+    "slug": "todo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -17,6 +17,23 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "vercel-test.bodya4000.com",
+              "pathPrefix": "/"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ],
       "package": "com.anonymous.testtodoapp"
     },
     "web": {
@@ -56,8 +73,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "afe78f9d-4243-4996-b900-8bfc17de4d9e"
+        "projectId": "0a56a396-9753-4220-8eaf-73a33685d3dd"
       }
-    }
+    },
+    "owner": "bodya4000"
   }
 }

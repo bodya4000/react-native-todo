@@ -30,13 +30,15 @@ class TodoDao implements IDao<ITodo> {
 		return todos;
 	}
 
-	save(model: ITodo): ITodo {
+	async save(model: ITodo): Promise<ITodo> {		
 		const categoryQuery = `SELECT id FROM Categories WHERE name = ? LIMIT 1`;
 		const categoryResult = this.db.getFirstSync<{ id: number }>(categoryQuery, [model.categories]);
 		const categoryId = categoryResult?.id ?? null;
-		if (!categoryId) {
+
+		if (!categoryId) {			
 			throw new Error(`Категорія "${model.categories}" не знайдена`);
 		}
+		
 		const query = `INSERT INTO Todos (title, done, due_time, category_fk_id) VALUES (?, ?, ?, ?)`;
 		const values = [model.title, model.done ? 1 : 0, model.date ? DateService.toSqliteFormat(model.date) : null, categoryId];
 		this.db.runAsync(query, values);

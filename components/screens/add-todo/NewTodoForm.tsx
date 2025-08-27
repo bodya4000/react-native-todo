@@ -36,8 +36,8 @@ const NewTodoForm: FC = () => {
 	const { goBack } = useNavigation();
 
 	const onSubmit = useCallback(
-		(data: FormValues) => {
-			todoService.saveTodo({ title: data.name, categories: data.category ?? Categories.DEFAULT, done: false, date: data.date, id: 0 });
+		async (data: FormValues) => {			
+			await todoService.saveTodo({ title: data.name, categories: data.category ?? Categories.DEFAULT, done: false, date: data.date, id: 0 });
 			ToastService.success('Success!');
 			goBack();
 		},

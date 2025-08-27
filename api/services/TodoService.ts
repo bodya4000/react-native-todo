@@ -22,9 +22,9 @@ export default class TodosService implements IService {
 		this.todoDao.delete(id);
 		this.queryClientService.invalidateTodos();
 	}
-	saveTodo(todo: ITodo): void {
-		this.todoDao.save(todo);
-		this.queryClientService.invalidateTodos();
+	async saveTodo(todo: ITodo): Promise<void> {
+		await this.todoDao.save(todo);
+		await this.queryClientService.invalidateTodos();
 	}
 
 	async getCompletedTodos(params: { searchText?: string; categories?: Categories }): Promise<ITodo[]> {
